@@ -6,22 +6,24 @@ require 'sinatra/reloader'
   def check_guess(guess)
     number = SECRET_NUMBER
     if guess.to_i == number
-      "You got it right!" + "\n" + "The SECRET NUMBER is #{number}"
+      ["You got it right!" + "\n" + "The SECRET NUMBER is #{number}", "green"]
     elsif (guess.to_i - number) > 5
-      "Way too high!"
+      ["Way too high!", "red"]
     elsif guess.to_i > number
-      "Too high!"
+      ["Too high!", "indianred"]
     elsif (number - guess.to_i) > 5
-      "Way too low"
+      ["Way too low", "red"]
     elsif guess.to_i < number
-      "Too low"
+      ["Too low", "indianred"]
     end
   end
 
 get '/' do
   guess = params['guess']
-  message = check_guess(guess)
-  erb :index, :locals => {:message => message}
+  message = check_guess(guess).first
+  color = check_guess(guess).last
+  erb :index, :locals => {:message => message,
+                          :color => color}
 end
 
 
