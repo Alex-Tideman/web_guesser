@@ -5,7 +5,7 @@ require 'sinatra/reloader'
 
   def check_guess(guess)
     number = SECRET_NUMBER
-    
+
       if guess.to_i == number
         ["You got it right!","green","yellow","The SECRET NUMBER is #{number}"]
       elsif (guess.to_i - number) > 5
@@ -18,8 +18,6 @@ require 'sinatra/reloader'
         ["Too low", "indianred", "black"]
       end
   end
-
-
 
   get '/' do
     guess = params['guess']
